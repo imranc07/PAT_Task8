@@ -1,7 +1,7 @@
 # PAT_Task8
-PAT_Task8 - MySQL
+## PAT_Task8 - MySQL
 
-Q:
+# Q:
 Using MySQL, design a database whose name is IMDB. Create proper MySQL tables, Primary Key, foreign Key, add data into MySQL tables and do the following as given below:
   1.	Movie should have multiple media(video or image)
   2.	Movie can belongs to multiple Genre
@@ -10,13 +10,13 @@ Using MySQL, design a database whose name is IMDB. Create proper MySQL tables, P
   5.	Artist can perform multiple roles in a single film
 
 
-Ans:
+# Ans:
 To start MySQL in CMD/shell terminal
 type
-mysql -u root -p
+# mysql -u root -p
 and hit enter
 
-1. Table for Movies (Movie should have multiple media(video or image))
+** 1. Table for Movies (Movie should have multiple media(video or image)) **
 
 CREATE TABLE movie (movie_id INT AUTO_INCREMENT PRIMARY KEY, movie_title VARCHAR(50), movie_year INT(4), movie_language VARCHAR(15)) AUTO_INCREMENT=1001;
 INSERT INTO movie(movie_title, movie_year, movie_language) VALUES ("Sector 36","2024","Hindi"),("Stree 2","2024","Hindi"), ("Tumbbad","2018","Hindi"),("Kill","2023","Hindi"),("Berlin","2023","English"),("Bad News","2024","Hindi");
@@ -54,7 +54,7 @@ INSERT INTO media (movie_id, media_type_id, media_url) VALUES
 (1006, 2, 'http://imdb.com/bad_news_video.mp4');
 
 
-Query to movie media 
+** Query to check movie media ** 
 
 SELECT
     m.movie_title,
@@ -70,7 +70,7 @@ ORDER BY
     m.movie_title, mt.media_type_name;
 
 *************************************************************************************************
-2. Movie can belongs to multiple Genre
+** 2. Movie can belongs to multiple Genre **
 
 CREATE TABLE genre (genre_id INT AUTO_INCREMENT PRIMARY KEY, genre_title VARCHAR(20)) AUTO_INCREMENT=2001;
 INSERT INTO genre(genre_title) VALUES("Action"), ("Adventure"),("Comedy"), ("Crime"), ("Romance"), ("Thriller"), ("Horror");
@@ -92,7 +92,7 @@ INSERT INTO movie_genres (movie_id, genre_id) VALUES
 (1005, 2003),
 (1006, 2006);
 
-Query to check genre
+** Query to check Movie Genre **
 
 SELECT
     m.movie_title,
@@ -107,7 +107,7 @@ ORDER BY
     m.movie_title, g.genre_title;
 
 ***************************************************************************************************
-3. Movie can have multiple reviews and Reviews can belongs to a user
+**3. Movie can have multiple reviews and Reviews can belongs to a user**
 
 CREATE TABLE user (user_id INT AUTO_INCREMENT PRIMARY KEY, user_name VARCHAR(20))AUTO_INCREMENT=3001;
 INSERT INTO user (user_name) VALUES ("Pankaj Tripathi"),("Sonu Sood"), ("Salman Khan"),("Akshay Kumar"),("Sunil Shetty"),("Mahima Chaudhari"),("Twinkle Khanna"),("Akshay Khanna"),("Anil Kapoor"),("Kapil Sharma");
@@ -133,7 +133,7 @@ INSERT INTO reviews (movie_id, review_star, user_id) VALUES
 ("1005", "9.9", "3009"),
 ("1006", "5.2", "3010");
 
-Query for Reviews
+** Query to check Movie Reviews **
 SELECT
     m.movie_title,
     u.user_name,
@@ -149,38 +149,38 @@ ORDER BY
 
 ***************************************************************************************************
 
-4.Create artist table(Artist can have multiple skills. Artist can perform multiple roles in a single film)
+**4.Create artist table(Artist can have multiple skills. Artist can perform multiple roles in a single film)**
 
 CREATE TABLE artists (artist_id INT AUTO_INCREMENT PRIMARY KEY, artist_name VARCHAR(100) NOT NULL);
 
-5. Insert Artist Data
+**5. Insert Artist Data**
 
 INSERT INTO artists (artist_name) VALUES 
 ('Kapil'), 
 ('Akshay'), 
 ('Mahima');
 
-6. Create skills table
+**6. Create skills table**
 
 CREATE TABLE skills (skill_id INT AUTO_INCREMENT PRIMARY KEY, skill_name VARCHAR(50) NOT NULL UNIQUE);
 
-7. Inserting Skills
+**7. Inserting Skills**
 
 INSERT INTO skills (skill_name) VALUES ('Acting'), ('Singing'), ('Dancing'), ('Directing');
 
-8.Create Artist Skill Table
+**8.Create Artist Skill Table**
 
 CREATE TABLE artist_skills (artist_id INT NOT NULL, skill_id INT NOT NULL, PRIMARY KEY (artist_id, skill_id), FOREIGN KEY (artist_id) REFERENCES artists(artist_id) ON DELETE CASCADE, FOREIGN KEY (skill_id) REFERENCES skills(skill_id) ON DELETE CASCADE);
 
-9. Insert artist skills
+**9. Insert artist skills**
 
 INSERT INTO artist_skills (artist_id, skill_id) VALUES (1, 1),(1, 2),(2, 2),(2, 3),(3, 1),(3, 4);
 
-10. Create Artist roles Table
+**10. Create Artist roles Table**
 
 CREATE TABLE artist_roles (movie_id INT NOT NULL, artist_id INT NOT NULL, role_name VARCHAR(50) NOT NULL, PRIMARY KEY (movie_id, artist_id, role_name), FOREIGN KEY (movie_id) REFERENCES movie(movie_id) ON DELETE CASCADE, FOREIGN KEY (artist_id) REFERENCES artists(artist_id) ON DELETE CASCADE);
 
-11. Insert artist role with movies
+**11. Insert artist role with movies**
 
 INSERT INTO artist_roles (movie_id, artist_id, role_name) VALUES (1001, 1, 'Lead Actor'),
 (1001, 1, 'Director'),
@@ -194,7 +194,7 @@ INSERT INTO artist_roles (movie_id, artist_id, role_name) VALUES (1001, 1, 'Lead
 (1005, 2, 'Lead Actor'),
 (1006, 2, 'Cameo');
 
-Query for skill and Role
+**Query to check artist skill and Role in movies**
 
 SELECT
     a.artist_name,
